@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finance AI Enablement: Tools & Architecture – GoDaddy Finance</title>
+  <style>
+    :root {
+      --brand: #047857;
+      --ink: #0f172a;
+      --muted: #475569;
+      --bg: #ffffff;
+      --line: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    header.hero {
+      padding: 64px 20px;
+      color: #fff;
+      background: linear-gradient(120deg, #047857, #059669);
+      text-align: center;
+    }
+    h1 { font-size: 40px; }
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .tab-nav {
+      background: #fff;
+      border-bottom: 2px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .tab-nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      padding: 0 20px;
+    }
+    .tab-btn {
+      padding: 16px 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--brand); background: #f8fafc; }
+    .tab-btn.active { color: var(--brand); border-bottom-color: var(--brand); }
+    .tab-content { display: none; padding: 40px 20px; }
+    .tab-content.active { display: block; }
+    section { margin-bottom: 40px; }
+    h2 { font-size: 28px; margin-bottom: 20px; }
+    h3 { font-size: 20px; margin-bottom: 16px; }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      background: #fff;
+      margin-top: 24px;
+    }
+    thead th {
+      background: linear-gradient(135deg, #047857, #059669);
+      color: white;
+      text-align: left;
+      padding: 20px 16px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    tbody tr:hover { background: #f8fafc; }
+    td { padding: 20px 16px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    .arch-diagram { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 24px; }
+    .arch-box {
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 16px 24px;
+      min-width: 280px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .arrow { font-size: 24px; }
+    .callout {
+      border-left: 4px solid var(--brand);
+      background: #ecfdf5;
+      padding: 12px 14px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 12px auto;
+    }
+    footer {
+      padding: 20px;
+      background: #0b1220;
+      color: #cbd5e1;
+      font-size: 13px;
+      text-align: center;
+    }
+    .agent-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      background: white;
+    }
+    .agent-icon {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      text-align: center;
+      line-height: 48px;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>🤖 Finance AI Enablement: Tools & Architecture</h1>
+  </header>
+
+  <nav class="tab-nav">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" onclick="showTab('overview')">🏠 Overview</button>
+      <button class="tab-btn" onclick="showTab('tools')">🧰 Tools</button>
+      <button class="tab-btn" onclick="showTab('arch')">🏗️ Architecture</button>
+      <button class="tab-btn" onclick="showTab('jtbd')">🎯 JTBD & Asks</button>
+      <button class="tab-btn" onclick="showTab('transform')">🔄 Transformation</button>
+      <button class="tab-btn" onclick="showTab('workflows')">⚡ AI Workflows</button>
+      <button class="tab-btn" onclick="showTab('registry')">📋 Agent Registry</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div id="overview" class="tab-content active">
+      <section style="text-align: center;">
+        <h2>From Pilot to Platform: Finance Tools & Architecture</h2>
+        <p style="color: var(--muted); max-width: 800px; margin: 0 auto 32px; line-height: 1.8; font-size: 1.1rem;">
+          A three-tier platform strategy enabling Finance teams to build, deploy, and scale AI agents—from democratized productivity tools to enterprise-grade agentic systems. We start with targeted pilots to validate high-value use cases, then systematically scale successful patterns into reusable platform capabilities. This "intentional opportunism" balances speed with sustainability.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto;">
+          <div style="background: #f0fdf4; padding: 24px; border-radius: 12px; border-left: 4px solid var(--brand); text-align: left;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--brand); margin-bottom: 8px;">🎯 Phase 1: Pilot</div>
+            <div style="font-size: 13px; color: var(--muted);">Validate use cases, demonstrate value, learn fast</div>
+          </div>
+          <div style="background: #eff6ff; padding: 24px; border-radius: 12px; border-left: 4px solid #3b82f6; text-align: left;">
+            <div style="font-size: 14px; font-weight: 700; color: #1e40af; margin-bottom: 8px;">🏗️ Phase 2: Platform</div>
+            <div style="font-size: 13px; color: var(--muted);">Scale successful patterns, build reusable infrastructure</div>
+          </div>
+          <div style="background: #fef3c7; padding: 24px; border-radius: 12px; border-left: 4px solid #f59e0b; text-align: left;">
+            <div style="font-size: 14px; font-weight: 700; color: #92400e; margin-bottom: 8px;">⚡ Result: Velocity</div>
+            <div style="font-size: 13px; color: var(--muted);">Move quickly on opportunities while ensuring sustainability</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="tools" class="tab-content">
+      <section>
+        <h2>Three-Tier Platform Architecture</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Personas</th>
+              <th>Tools Options</th>
+              <th>Sample Use Cases</th>
+              <th>Value & Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Tier 1 Point-Based Agents</strong><br>Embedded AI in daily tools</td>
+              <td>All Finance employees</td>
+              <td>• Microsoft 365 Copilot<br>• GoCaaS OI</td>
+              <td>• Contractor Onboarding (80% faster)<br>• SOX Control Owner Agent (90% accuracy)<br>• Personal Productivity Agents</td>
+              <td>• Broad adoption, faster analysis<br>• 20–30% productivity improvement</td>
+            </tr>
+            <tr>
+              <td><strong>Tier 2 Low-Code / No-Code</strong><br>Builder sandbox</td>
+              <td>Power users, process owners<br>Senior Analysts, Rising Stars</td>
+              <td>• Copilot Studio<br>• UiPath RPA<br>• ServiceNow AI Agent Studio</td>
+              <td>• Payroll FAQ Bot<br>• Procurement Budgeting Agent<br>• Supplier Contact Lookup<br>• Multi-agent orchestration</td>
+              <td>• Ticket deflection, cycle-time reduction<br>• 50–70% process automation</td>
+            </tr>
+            <tr>
+              <td><strong>Tier 3 AI Developer Platform</strong><br>Enterprise-grade development</td>
+              <td>FDAT AI Technical Specialists and Architects</td>
+              <td>• GoCaaS OI (Developer Mode)<br>• AWS Suite (Bedrock)<br>• ServiceNow AI Agent Studio<br>• SDKs, Custom Apps</td>
+              <td>• Treasury Cash Flow Forecasting<br>• Contract Review Automation<br>• Monthly Close Variance Analysis<br>• Multi-agent workflow orchestration</td>
+              <td>• End-to-end automation<br>• Governed scale, reusable agents</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div style="margin-top: 32px; padding: 20px; background: #f8fafc; border-left: 4px solid var(--muted); border-radius: 8px;">
+          <h3 style="font-size: 18px; color: #6b7280; margin-bottom: 12px;">Developer Platforms Options (Level 3)</h3>
+          <ul style="padding-left: 20px; color: var(--muted);">
+            <li style="margin-bottom: 8px;"><strong>GoCaaS OI (Developer Mode):</strong> Internal enterprise backbone; MCP registry & observability</li>
+            <li style="margin-bottom: 8px;"><strong>Amazon AWS Bedrock Agents:</strong> Action Groups, Knowledge Bases, Guardrails/Policy, runtime orchestration APIs</li>
+            <li style="margin-bottom: 8px;"><strong>OpenAI SDK:</strong> Tool calling, structured outputs; pair with LangChain/LangGraph</li>
+            <li><strong>LangChain / LangGraph:</strong> Framework for multi-tool, multi-agent flows</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <div id="arch" class="tab-content">
+      <section>
+        <h2>Finance AI Ecosystem Integration Architecture</h2>
+        <div class="arch-diagram">
+          <div class="arch-box"><strong>AI Platform Tools & Services</strong><br><small>Tier 1: M365 Copilot, GoCaaS OI<br>Tier 2: Copilot Studio, UiPath, ServiceNow<br>Tier 3: GoCaaS OI Dev, AWS Bedrock, SDKs</small></div>
+          <div class="arrow">⬇️</div>
+          <div class="arch-box"><strong>MCP Orchestration Layer</strong><br><small>Universal data access • Consistent security • Cross-platform communication</small></div>
+          <div class="arrow">⬇️</div>
+          <div class="arch-box"><strong>API Integration Layer</strong><br><small>REST & GraphQL • Authentication • Data normalization</small></div>
+          <div class="arrow">⬇️</div>
+          <div class="arch-box"><strong>Enterprise Data Sources</strong><br><small>Workday | FDM | Adaptive | Teradata | Ironclad | ServiceNow</small></div>
+          <div class="callout"><strong>Integration Note:</strong> Horizontal and vertical tools coexist. MCP provides policy, routing, and observability.</div>
+        </div>
+      </section>
+    </div>
+
+    <div id="jtbd" class="tab-content">
+      <section>
+        <h2>Jobs-to-be-Done: Platform & Infrastructure Enablement</h2>
+        <p style="color: var(--muted); margin-bottom: 32px;">Engineering capacity needed for platform enablement, MCP infrastructure, and security. Finance has AI agent builders (Rising Stars), but requires FDAT engineering support for enterprise infrastructure.</p>
+        
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10%;">Priority</th>
+              <th style="width: 28%;">Infrastructure JTBD</th>
+              <th style="width: 38%;">Engineering Work Required</th>
+              <th style="width: 24%;">Expected Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: #fef2f2;">
+              <td style="text-align: center;"><div style="background: #ef4444; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P0-1</div></td>
+              <td><strong>Tier 2 Platform for Rising Stars</strong><br><small style="color: var(--muted);">Copilot Studio OR ServiceNow AI Agent Studio</small></td>
+              <td>• Platform procurement & licensing<br>• Sandbox setup<br>• SSO integration<br>• MCP connections<br>• Maker licenses<br><br><em style="color: #991b1b;">Requires Corp IT procurement, enterprise licensing</em></td>
+              <td><strong>Empowers Rising Stars:</strong><br>Self-service agent development for 15+ use cases</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+              <td style="text-align: center;"><div style="background: #ef4444; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P0-2</div></td>
+              <td><strong>Tier 3 Developer Platform</strong><br><small style="color: var(--muted);">AWS Bedrock for advanced ML</small></td>
+              <td>• AWS setup<br>• Dev/test/prod environments<br>• CI/CD pipeline<br>• Guardrails & evaluation<br><br><em style="color: #991b1b;">Requires cloud architecture, DevOps skills</em></td>
+              <td><strong>Advanced use cases:</strong><br>ML forecasting, predictive analytics, NLP analysis</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+              <td style="text-align: center;"><div style="background: #ef4444; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P0-3</div></td>
+              <td><strong>MCP Server for Ironclad</strong><br><small style="color: var(--muted);">TOP PRIORITY - Contract intelligence</small></td>
+              <td>• Ironclad API (Forge coordination)<br>• Contract metadata extraction<br>• OAuth 2.1<br>• Security clearances<br><br><em style="color: #991b1b;">Requires Forge coordination, API access</em></td>
+              <td><strong>Unlocks P2P North Star:</strong><br>Contract-PO matching, renewals, spend analytics</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+              <td style="text-align: center;"><div style="background: #ef4444; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P0-4</div></td>
+              <td><strong>Additional MCP Servers</strong><br><small>Workday, Adaptive, FDM, Teradata, Vertex, ServiceNow - <span style="background: #fbbf24; color: #78350f; padding: 2px 6px; border-radius: 4px; font-weight: 600;">Needs prioritization</span></small></td>
+              <td>• OAuth 2.1 per system<br>• API mapping<br>• Security & logging<br><br><em style="color: #991b1b;">Requires system admin access, API credentials</em></td>
+              <td><strong>Foundation for 20+ agents:</strong><br>Close, forecasting, reporting, reconciliation</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+              <td style="text-align: center;"><div style="background: #ef4444; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P0-5</div></td>
+              <td><strong>Security & Compliance Support</strong><br><small style="color: var(--muted);">For all Finance AI use cases</small></td>
+              <td>• PIA templates & execution<br>• ESA coordination<br>• SOX documentation<br>• InfoSec workflows<br><br><em style="color: #991b1b;">Requires InfoSec expertise, compliance frameworks</em></td>
+              <td><strong>De-risks ALL agents:</strong><br>Compliance, audit readiness, approvals</td>
+            </tr>
+            <tr style="background: #fffbeb;">
+              <td style="text-align: center;"><div style="background: #f59e0b; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P1-1</div></td>
+              <td><strong>AI Studio Sandbox Tenant</strong><br><small style="color: var(--muted);">Maker licenses for Finance prototyping</small></td>
+              <td>• Sandbox provisioning<br>• Maker licenses for Rising Stars<br>• Role-scoped data access<br>• Production MCP connection (read-only)<br><br><em style="color: #92400e;">Requires platform licensing, security scoping</em></td>
+              <td><strong>Safe prototyping:</strong><br>Test/refine agents before production</td>
+            </tr>
+            <tr style="background: #fffbeb;">
+              <td style="text-align: center;"><div style="background: #f59e0b; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P1-2</div></td>
+              <td><strong>Agent Registry - Guidance & Setup</strong><br><small style="color: var(--muted);">Centralized catalog with RBAC, observability, compliance tracking</small></td>
+              <td>• Architecture design & technical guidance<br>• Agent catalog database schema<br>• RBAC & access control design<br>• SSO integration<br>• Governance frameworks (policies, approvals, cost control)<br><br><em style="color: #92400e;">Requires enterprise architecture, database design expertise</em></td>
+              <td><strong>Governance foundation:</strong><br>Centralized discovery, compliance tracking, cost control, self-service provisioning</td>
+            </tr>
+            <tr style="background: #fffbeb;">
+              <td style="text-align: center;"><div style="background: #f59e0b; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P1-3</div></td>
+              <td><strong>Observability & Monitoring</strong><br><small style="color: var(--muted);">Agent performance tracking</small></td>
+              <td>• Log aggregation<br>• Monitoring dashboards<br>• Alerts & routing<br>• Token usage tracking<br><br><em style="color: #92400e;">Requires enterprise monitoring tools</em></td>
+              <td><strong>Operational excellence:</strong><br>Real-time monitoring, cost optimization</td>
+            </tr>
+            <tr style="background: #fffbeb;">
+              <td style="text-align: center;"><div style="background: #f59e0b; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P1-4</div></td>
+              <td><strong>Early Access to New Tools</strong><br><small style="color: var(--muted);">Include Finance in evaluation funnel</small></td>
+              <td>• Establish Finance as stakeholder<br>• Notification funnel for features<br>• Share platform roadmaps<br>• Early beta access<br><br><em style="color: #92400e;">Finance currently learns about tools months late</em></td>
+              <td><strong>Competitive advantage:</strong><br>Stay current, influence roadmaps</td>
+            </tr>
+            <tr style="background: #fffbeb;">
+              <td style="text-align: center;"><div style="background: #f59e0b; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P1-5</div></td>
+              <td><strong>Include Finance in Tool Evaluation</strong><br><small style="color: var(--muted);">Participate in RFPs, vendor selection</small></td>
+              <td>• Add Finance to committees<br>• Finance use cases in RFPs<br>• Joint POC testing<br>• Vendor selection input<br><br><em style="color: #92400e;">Finance perspective currently missing from selection</em></td>
+              <td><strong>Better tool fit:</strong><br>Requirements baked in, avoid rework</td>
+            </tr>
+            <tr style="background: #f0fdf4;">
+              <td style="text-align: center;"><div style="background: #10b981; color: white; padding: 8px; border-radius: 8px; font-weight: 700;">P2-1</div></td>
+              <td><strong>Data Quality & Governance Layer</strong><br><small style="color: var(--muted);">Active metadata, data lineage</small></td>
+              <td>• Metadata management<br>• Data lineage tracking<br>• Quality validation<br>• Bias detection<br><br><em style="color: #065f46;">Requires data architecture, MDM expertise</em></td>
+              <td><strong>AI quality foundation:</strong><br>Accurate models, bias prevention, compliance</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div style="margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 12px;">
+            <div style="font-weight: 700; color: #991b1b; margin-bottom: 8px;">🔴 P0 - Must-Have Foundation (5)</div>
+            <div style="font-size: 13px; color: #7f1d1d;">Tier 2/3 platforms, Ironclad MCP, other MCPs, security. Target: Q1-Q2 2026</div>
+          </div>
+          <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; border-radius: 12px;">
+            <div style="font-weight: 700; color: #92400e; margin-bottom: 8px;">🟡 P1 - Strategic Enablers (5)</div>
+            <div style="font-size: 13px; color: #78350f;">Sandbox, registry, observability, organizational integration. Target: Q2-Q3 2026</div>
+          </div>
+          <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 12px;">
+            <div style="font-weight: 700; color: #065f46; margin-bottom: 8px;">🟢 P2 - Enhancement (1)</div>
+            <div style="font-size: 13px; color: #064e3b;">Data quality layer. Target: H2 2026+</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="transform" class="tab-content">
+      <section>
+        <h2>Finance Transformation: From Today → Tomorrow</h2>
+        <p style="color: var(--muted); margin-bottom: 24px;">How AI transforms Finance operations</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Theme</th>
+              <th>Finance Today</th>
+              <th>Finance Tomorrow</th>
+              <th>Example Use Cases</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Operational Efficiency</strong></td>
+              <td>Manual workflows, handoffs, reconciliation</td>
+              <td>Automated workflows with seamless data flow</td>
+              <td>• Close tracking agent<br>• Accrual validation<br>• Journal entry routing</td>
+              <td style="font-size: 12px;">⏱ 50% cycle time reduction</td>
+            </tr>
+            <tr>
+              <td><strong>Forecasting & Planning</strong></td>
+              <td>Spreadsheet-driven, infrequent updates</td>
+              <td>Continuous updates with near-real-time data</td>
+              <td>• Rolling forecast agent<br>• Variance analyzer<br>• Scenario modeling</td>
+              <td style="font-size: 12px;">🔮 Agile forecasting</td>
+            </tr>
+            <tr>
+              <td><strong>Reporting & Insights</strong></td>
+              <td>Static, backward-looking reports</td>
+              <td>Dynamic, interactive insights</td>
+              <td>• Finance copilot Q&A<br>• Automated P&L refresh<br>• Executive summaries</td>
+              <td style="font-size: 12px;">🚀 10× faster insights</td>
+            </tr>
+            <tr>
+              <td><strong>Controls & Compliance</strong></td>
+              <td>Manual evidence gathering, checks</td>
+              <td>Embedded controls, auto-captured evidence</td>
+              <td>• Continuous monitoring<br>• SOX documentation<br>• Audit evidence</td>
+              <td style="font-size: 12px;">✅ Real-time compliance</td>
+            </tr>
+            <tr>
+              <td><strong>Source to Procure-to-Pay</strong></td>
+              <td>Manual, fragmented, error-prone, slow</td>
+              <td>Unified, automated, real-time, accurate</td>
+              <td>• Unified supplier portal for all interactions<br>• Self-service onboarding and document uploads<br>• Real-time status tracking and automated notifications</td>
+              <td style="font-size: 12px;">💸 Error reduction, faster processing</td>
+            </tr>
+            <tr>
+              <td><strong>Finance Close to Report</strong></td>
+              <td>Manual, fragmented, reactive, time-intensive</td>
+              <td>Intelligent, automated, proactive, accelerated</td>
+              <td>• RPA bots for registry account reconciliations<br>• GenAI for journal entry generation and narrative reporting<br>• Rule-based Workday configurations for segment allocations and intercompany eliminations<br>• Pre-close validations and soft closes<br>• Integrated dashboards for real-time tracking and exception alerts</td>
+              <td style="font-size: 12px;">⏱ 50% faster close cycle</td>
+            </tr>
+            <tr>
+              <td><strong>Workforce Planning</strong></td>
+              <td>Static templates, offline updates</td>
+              <td>Dynamic updates from source systems</td>
+              <td>• Headcount forecast<br>• Expense linkage<br>• Merit simulation</td>
+              <td style="font-size: 12px;">📅 Real-time alignment</td>
+            </tr>
+            <tr>
+              <td><strong>Decision Intelligence</strong></td>
+              <td>Periodic reviews, after-the-fact data</td>
+              <td>Real-time alerts and predictions</td>
+              <td>• Revenue anomaly alerts<br>• Cost predictions<br>• Cash-flow alerts</td>
+              <td style="font-size: 12px;">⚡ Proactive decisions</td>
+            </tr>
+            <tr>
+              <td><strong>Culture & Capability</strong></td>
+              <td>Reactive mode, limited visibility</td>
+              <td>Orchestrator focused on strategy</td>
+              <td>• Rising Stars program<br>• Prompt playbooks<br>• Enablement showcases</td>
+              <td style="font-size: 12px;">💪 Empowered workforce</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div id="workflows" class="tab-content">
+      <section>
+        <h2>Finance Tomorrow: AI-Powered Workflows</h2>
+        <p style="color: var(--muted); margin-bottom: 24px;">Simple prompts that execute complex Finance processes</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Finance Area</th>
+              <th>Example Prompts</th>
+              <th>What Happens</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Month-End Close</strong></td>
+              <td>• "Show open entries in Hosting and Care"<br>• "Auto-reconcile deferred revenue for Domains"<br>• "Generate close status dashboard"<br>• "Highlight high-risk entries"</td>
+              <td>Agents orchestrate reconciliations, track approvals, surface exceptions</td>
+              <td style="font-size: 12px;">⏱ Faster close</td>
+            </tr>
+            <tr>
+              <td><strong>Forecasting</strong></td>
+              <td>• "Update Q4 forecast with latest bookings"<br>• "EBITDA impact if Care headcount +8%?"<br>• "Model 5% attach rate improvement"<br>• "Top variance drivers in Q3?"</td>
+              <td>Data refreshes models, variance analysis automated</td>
+              <td style="font-size: 12px;">🔮 Real-time forecasts</td>
+            </tr>
+            <tr>
+              <td><strong>Reporting</strong></td>
+              <td>• "Summarize Q3 Hosting P&L variance"<br>• "Why did Marketing spend increase 12%?"<br>• "Generate leadership dashboard"<br>• "Top 3 margin compression drivers"</td>
+              <td>Agents aggregate data, decompose variance, draft commentary</td>
+              <td style="font-size: 12px;">📊 10× faster</td>
+            </tr>
+            <tr>
+              <td><strong>Procurement</strong></td>
+              <td>• "Validate new suppliers this week"<br>• "List PO mismatches over $10K"<br>• "Summarize AWS, Microsoft, Google spend"<br>• "Supplier cycle time by region"</td>
+              <td>Agents analyze supplier, PO, spend data for compliance</td>
+              <td style="font-size: 12px;">💸 Reduced risk</td>
+            </tr>
+            <tr>
+              <td><strong>Controls</strong></td>
+              <td>• "List control exceptions this month"<br>• "Generate SOX evidence for Q3"<br>• "Flag duplicate payments"<br>• "Audit trail for Marketing accruals"</td>
+              <td>Agents monitor controls, automate evidence gathering</td>
+              <td style="font-size: 12px;">✅ Continuous compliance</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div id="registry" class="tab-content">
+      <section>
+        <h2>Vision: GoDaddy Finance AI Agent Registry</h2>
+        <p style="color: var(--muted); margin-bottom: 32px;">Centralized hub for AI agents specifically built for GoDaddy Finance organization.</p>
+        
+        <div style="margin-bottom: 32px; padding: 24px; background: #f0fdf4; border-left: 4px solid var(--brand); border-radius: 12px;">
+          <h3 style="color: var(--brand); margin-bottom: 16px;">Key Registry Capabilities</h3>
+          <ul style="padding-left: 20px; color: var(--muted); line-height: 1.8;">
+            <li><strong>Agent Discovery:</strong> Search and browse all available Finance AI agents by function, use case, or capability</li>
+            <li><strong>Status Tracking:</strong> Real-time visibility into agent status (Active, Development, Planned)</li>
+            <li><strong>Usage Monitoring:</strong> Track agent utilization, performance metrics, and user adoption</li>
+            <li><strong>Governance Controls:</strong> Role-based access, approval workflows, and compliance tracking</li>
+            <li><strong>Self-Service Access:</strong> Enable Finance teams to request and provision agents efficiently</li>
+          </ul>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #047857, #059669); color: white; padding: 24px; border-radius: 16px 16px 0 0;">
+          <h3 style="font-size: 24px; margin-bottom: 8px;">GoDaddy Finance AI Agent Registry</h3>
+          <p style="opacity: 0.9;">Discover and manage Finance AI agents</p>
+        </div>
+        
+        <div style="background: #fff; border: 2px solid var(--line); border-top: none; border-radius: 0 0 16px 16px; padding: 24px;">
+          <input type="text" placeholder="Search agents..." style="width: 100%; padding: 12px 16px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 24px;" />
+          
+          <p style="color: var(--muted); margin-bottom: 20px;">Find the right AI agent for your finance workflow</p>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+            <div class="agent-card">
+              <div class="agent-icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">📊</div>
+              <h4 style="font-size: 16px; margin-bottom: 4px;">Bookings Revenue Automation</h4>
+              <span style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">LIVE</span>
+              <p style="margin: 12px 0; font-size: 13px; color: var(--muted);">Automates bookings data ingestion and revenue recognition</p>
+              <div><span style="background: #eff6ff; color: #1e40af; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px;">Process Agent</span><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 11px;">Revenue</span></div>
+            </div>
+            
+            <div class="agent-card">
+              <div class="agent-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">🛡️</div>
+              <h4 style="font-size: 16px; margin-bottom: 4px;">SOX Control Owner Copilot</h4>
+              <span style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">LIVE</span>
+              <p style="margin: 12px 0; font-size: 13px; color: var(--muted);">Intelligent compliance assistant for SOX control guidance</p>
+              <div><span style="background: #f3e8ff; color: #6b21a8; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px;">Knowledge Agent</span><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 11px;">ARC</span></div>
+            </div>
+            
+            <div class="agent-card">
+              <div class="agent-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">🔄</div>
+              <h4 style="font-size: 16px; margin-bottom: 4px;">Contractor Onboarding Agent</h4>
+              <span style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">LIVE</span>
+              <p style="margin: 12px 0; font-size: 13px; color: var(--muted);">Accelerates contractor onboarding by 80%</p>
+              <div><span style="background: #eff6ff; color: #1e40af; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px;">Process Agent</span><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 11px;">Payroll</span></div>
+            </div>
+            
+            <div class="agent-card">
+              <div class="agent-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">🚀</div>
+              <h4 style="font-size: 16px; margin-bottom: 4px;">Product Launch Analyst</h4>
+              <span style="background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">LIVE</span>
+              <p style="margin: 12px 0; font-size: 13px; color: var(--muted);">Reduces product launch analysis from 3 hours to 20 minutes</p>
+              <div><span style="background: #dbeafe; color: #1e3a8a; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px;">Analytics Agent</span><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 11px;">FP&A</span></div>
+            </div>
+            
+            <div class="agent-card">
+              <div class="agent-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">🔐</div>
+              <h4 style="font-size: 16px; margin-bottom: 4px;">AI Role Validation Agent</h4>
+              <span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">IN PROGRESS</span>
+              <p style="margin: 12px 0; font-size: 13px; color: var(--muted);">Automated access review for segregation of duties</p>
+              <div><span style="background: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px;">Decision Agent</span><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 11px;">ARC</span></div>
+            </div>
+            
+            <div class="agent-card">
+              <div class="agent-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">📋</div>
+              <h4 style="font-size: 16px; margin-bottom: 4px;">Contract Term Analysis</h4>
+              <span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">IN PROGRESS</span>
+              <p style="margin: 12px 0; font-size: 13px; color: var(--muted);">Extracts and analyzes key contract terms</p>
+              <div><span style="background: #f3e8ff; color: #6b21a8; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px;">Knowledge Agent</span><span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 6px; font-size: 11px;">Procurement</span></div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 24px; padding: 16px; background: #f8fafc; border-radius: 8px; text-align: center;">
+            <p style="color: var(--muted);"><strong>Registry Statistics:</strong> 23 Live Agents • 13 In Development • 50+ Planned</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© GoDaddy Finance – Discussion draft</div>
+  </footer>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
